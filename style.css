@@ -10,4 +10,13 @@ td, th {
 
 h1{
     margin: auto;
+    text-align: center;
+}
+#submit-selection{
+    background-color: dodgerblue;
+    color: white;
+}
+#submit-input{
+    background-color: lawngreen;
+    color: darkred;
 }
