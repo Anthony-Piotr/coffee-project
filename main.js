@@ -1,34 +1,35 @@
 "use strict"
 
-function renderCoffee(coffee) {
-    var html = '<tr class="coffee">';
-    html += '<td>' + coffee.id + '</td>';
-    html += '<td>' + coffee.name + '</td>';
-    html += '<td>' + coffee.roast + '</td>';
-    html += '</tr>';
+// function renderCoffee(coffee) {
+//     var html = '<tr class="coffee">';
+//     html += '<td>' + coffee.id + '</td>';
+//     html += '<td>' + coffee.name + '</td>';
+//     html += '<td>' + coffee.roast + '</td>';
+//     html += '</tr>';
+//
+//     return html;
+// }
 
-    return html;
-}
+// function renderCoffees(coffees) {
+//     var html = '';
+//     for(var i = coffees.length - 1; i >= 0; i--) {
+//         html += renderCoffee(coffees[i]);
+//     }
+//     return html;
+// }
 
-function renderCoffees(coffees) {
-    var html = '';
-    for(var i = coffees.length - 1; i >= 0; i--) {
-        html += renderCoffee(coffees[i]);
-    }
-    return html;
-}
-
-function updateCoffees(e) {
-    e.preventDefault(); // don't submit the form, we just want to update the data
-    var selectedRoast = roastSelection.value;
-    var filteredCoffees = [];
-    coffees.forEach(function(coffee) {
-        if (coffee.roast === selectedRoast) {
-            filteredCoffees.push(coffee);
-        }
-    });
-    tbody.innerHTML = renderCoffees(filteredCoffees);
-}
+// function updateCoffees(e) {
+//     e.preventDefault(); // don't submit the form, we just want to update the data
+//     var selectedRoast = roastSelection.value;
+//     var filteredCoffees = [];
+//     coffees.forEach(function(coffee) {
+//         if (coffee.roast === selectedRoast) {
+//             filteredCoffees.push(coffee);
+//         }
+//     });
+//     tbody.innerHTML = renderCoffees(filteredCoffees);
+//
+// }
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
 var coffees = [
@@ -52,6 +53,50 @@ var tbody = document.querySelector('#coffees');
 var submitButton = document.querySelector('#submit');
 var roastSelection = document.querySelector('#roast-selection');
 
-tbody.innerHTML = renderCoffees(coffees);
+// tbody.innerHTML = renderCoffees(coffees);
 
 submitButton.addEventListener('click', updateCoffees);
+
+
+
+//************Our Code***********************
+
+//Assign coffee-div id to variable
+var coffeeDiv = document.querySelector('#coffee-div');
+
+//Render all coffees to screen for initial display
+coffeeDiv.innerHTML = renderCoffees(coffees);
+
+
+//This function creates the HTML tags for a single coffee
+function renderCoffee(coffee) {
+    var html = '<h2>'+ coffee.name + '</h2>';
+    html += '<p>'+ coffee.roast + '</p>';
+    return html;
+}
+
+//This function creates the HTML tags for a single coffee
+    //The for loop assign each coffee elements HTML in ascending
+    //order according to id number
+function renderCoffees(coffees) {
+    var html = '';
+    for(var i=0; i <coffees.length; i++) {
+        html += renderCoffee(coffees[i]);
+    }
+    return html;
+}
+
+//This function filters coffees based on roast selection
+//and returns the HTML for those filtered coffees
+function updateCoffees(e) {
+    e.preventDefault(); // don't submit the form, we just want to update the data
+    var selectedRoast = roastSelection.value;
+    var filteredCoffees = [];
+    coffees.forEach(function(coffee) {
+        if (coffee.roast === selectedRoast) {
+            filteredCoffees.push(coffee);
+        }
+    });
+    coffeeDiv.innerHTML = renderCoffees(filteredCoffees);
+
+}
