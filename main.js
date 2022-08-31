@@ -50,7 +50,7 @@ var coffees = [
 ];
 
 var tbody = document.querySelector('#coffees');
-var submitButton = document.querySelector('#submit');
+var submitButton = document.querySelector('#submit-selection');
 var roastSelection = document.querySelector('#roast-selection');
 
 // tbody.innerHTML = renderCoffees(coffees);
@@ -64,9 +64,10 @@ var roastSelection = document.querySelector('#roast-selection');
 //Assign coffee-div id to variable
 var coffeeDiv = document.querySelector('#coffee-div');
 var roastSelectionChange = document.querySelector('#roast-selection');
-var coffeeSelection = document.querySelector('#coffee-selection')
-
-
+var coffeeSelection = document.querySelector('#coffee-selection');
+var roastInputSelection = document.querySelector('#roast-input-selection');
+var coffeeInputSelection = document.querySelector('#coffee-input-selection');
+var submitInput = document.querySelector('#submit-input');
 
 //Render all coffees to screen for initial display
 coffeeDiv.innerHTML = renderCoffees(coffees);
@@ -76,7 +77,7 @@ coffeeDiv.innerHTML = renderCoffees(coffees);
 //Eventlisteners
 roastSelectionChange.addEventListener('change', updateCoffees);
 submitButton.addEventListener('click', coffeeNameFilter);
-
+submitInput.addEventListener('click', addCoffee);
 
 
 //This function creates the HTML tags for a single coffee
@@ -126,16 +127,36 @@ function coffeeNameFilter(e){
 
 
     coffees.forEach(function(coffee) {
-        if (coffee.name === selectedCoffee) {
+        if(coffee.name.toLowerCase() === selectedCoffee.toLowerCase()) {
             filteredCoffees.push(coffee);
         }
         // for (var i=0; i <coffee.name.length; i++)
         // if (coffee.name[i] === selectedCoffee[i]) {
         //     coffeeString.concat(coffee.name[i]);
         //     }
-
     });
 
     //Render filter coffee selection to the screen
     coffeeDiv.innerHTML = renderCoffees(filteredCoffees);
+}
+
+//This function adds a new coffee object to the coffee array
+function addCoffee(e){
+    e.preventDefault();
+    //Get new coffee values
+    let coffeeName = coffeeInputSelection.value;
+    let roastName = roastInputSelection.value;
+
+    console.log(coffeeName + " is working and " + roastName + " is working.");
+
+    //construct object
+    var newCoffee = {id: coffees.length+1, name: coffeeName, roast: roastName};
+
+    //new coffee array
+    var newCoffees = coffees;
+    //push on to coffee array
+    newCoffees.push(newCoffee);
+
+    //display coffee array
+    coffeeDiv.innerHTML = renderCoffees(newCoffees);
 }
