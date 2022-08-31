@@ -76,8 +76,9 @@ coffeeDiv.innerHTML = renderCoffees(coffees);
 
 //Eventlisteners
 roastSelectionChange.addEventListener('change', updateCoffees);
-submitButton.addEventListener('click', coffeeNameFilter);
+// submitButton.addEventListener('click', coffeeNameFilter);
 submitInput.addEventListener('click', addCoffee);
+coffeeSelection.addEventListener('input', coffeeNameFilter);
 
 
 //This function creates the HTML tags for a single coffee
@@ -136,7 +137,7 @@ function coffeeNameFilter(e){
         //     coffeeString.concat(coffee.name[i]);
         //     }
 
-        if(coffee.name.includes(selectedCoffee)){
+        if(coffee.name.toLowerCase().includes(selectedCoffee)){
             filteredCoffees.push(coffee);
         }
     });
