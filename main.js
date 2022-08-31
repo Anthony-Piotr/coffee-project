@@ -55,17 +55,28 @@ var roastSelection = document.querySelector('#roast-selection');
 
 // tbody.innerHTML = renderCoffees(coffees);
 
-submitButton.addEventListener('click', updateCoffees);
+// submitButton.addEventListener('click', updateCoffees);
 
 
 
-//************Our Code***********************
+//***************************************Our Code************************************
 
 //Assign coffee-div id to variable
 var coffeeDiv = document.querySelector('#coffee-div');
+var roastSelectionChange = document.querySelector('#roast-selection');
+var coffeeSelection = document.querySelector('#coffee-selection')
+
+
 
 //Render all coffees to screen for initial display
 coffeeDiv.innerHTML = renderCoffees(coffees);
+
+
+
+//Eventlisteners
+roastSelectionChange.addEventListener('change', updateCoffees);
+submitButton.addEventListener('click', coffeeNameFilter);
+
 
 
 //This function creates the HTML tags for a single coffee
@@ -91,6 +102,10 @@ function renderCoffees(coffees) {
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
+    if(selectedRoast == 'all'){
+        return coffeeDiv.innerHTML = renderCoffees(coffees);
+    }
+
     var filteredCoffees = [];
     coffees.forEach(function(coffee) {
         if (coffee.roast === selectedRoast) {
@@ -99,4 +114,28 @@ function updateCoffees(e) {
     });
     coffeeDiv.innerHTML = renderCoffees(filteredCoffees);
 
+}
+
+//This function filters coffees based on coffee input
+//and returns the HTML for those filtered coffees
+function coffeeNameFilter(e){
+    e.preventDefault();
+    var selectedCoffee = coffeeSelection.value;
+
+    var filteredCoffees = [];
+
+
+    coffees.forEach(function(coffee) {
+        if (coffee.name === selectedCoffee) {
+            filteredCoffees.push(coffee);
+        }
+        // for (var i=0; i <coffee.name.length; i++)
+        // if (coffee.name[i] === selectedCoffee[i]) {
+        //     coffeeString.concat(coffee.name[i]);
+        //     }
+
+    });
+
+    //Render filter coffee selection to the screen
+    coffeeDiv.innerHTML = renderCoffees(filteredCoffees);
 }
