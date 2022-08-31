@@ -120,20 +120,25 @@ function updateCoffees(e) {
 //This function filters coffees based on coffee input
 //and returns the HTML for those filtered coffees
 function coffeeNameFilter(e){
-    e.preventDefault();
+    // e.preventDefault();
     var selectedCoffee = coffeeSelection.value;
 
     var filteredCoffees = [];
 
 
     coffees.forEach(function(coffee) {
-        if(coffee.name.toLowerCase() === selectedCoffee.toLowerCase()) {
-            filteredCoffees.push(coffee);
-        }
+        // if(coffee.name.toLowerCase() === selectedCoffee.toLowerCase()) {
+        //     filteredCoffees.push(coffee);
+        // }
+
         // for (var i=0; i <coffee.name.length; i++)
         // if (coffee.name[i] === selectedCoffee[i]) {
         //     coffeeString.concat(coffee.name[i]);
         //     }
+
+        if(coffee.name.includes(selectedCoffee)){
+            filteredCoffees.push(coffee);
+        }
     });
 
     //Render filter coffee selection to the screen
